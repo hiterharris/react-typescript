@@ -28285,7 +28285,79 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"Counter.tsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"App.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"Counter.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -28330,10 +28402,14 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
+require("./App.css");
+
 var Counter = function Counter(props) {
   var _a = react_1.useState(0),
       count = _a[0],
       setCount = _a[1];
+
+  var name = react_1.useState('Hiter')[0];
 
   var increment = function increment() {
     setCount(count + 1);
@@ -28343,15 +28419,21 @@ var Counter = function Counter(props) {
     setCount(count - 1);
   };
 
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, count), /*#__PURE__*/React.createElement("button", {
+  var reset = function reset() {
+    setCount(0);
+  };
+
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, name), /*#__PURE__*/React.createElement("h1", null, count), /*#__PURE__*/React.createElement("button", {
     onClick: increment
   }, "Increment"), /*#__PURE__*/React.createElement("button", {
     onClick: decrement
-  }, "Decrement"));
+  }, "Decrement"), /*#__PURE__*/React.createElement("button", {
+    onClick: reset
+  }, "Reset"));
 };
 
 exports.default = Counter;
-},{"react":"../node_modules/react/index.js"}],"App.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./App.css":"App.css"}],"App.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -28402,12 +28484,16 @@ var React = __importStar(require("react"));
 
 var Counter_1 = __importDefault(require("./Counter"));
 
+require("./App.css");
+
 var App = function App() {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Counter_1.default, null));
+  return /*#__PURE__*/React.createElement("div", {
+    className: "App"
+  }, /*#__PURE__*/React.createElement(Counter_1.default, null));
 };
 
 exports.default = App; // npm run dev
-},{"react":"../node_modules/react/index.js","./Counter":"Counter.tsx"}],"index.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Counter":"Counter.tsx","./App.css":"App.css"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -28489,7 +28575,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63630" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55335" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
