@@ -5,12 +5,6 @@ import './App.css';
 import {connect} from 'react-redux';
 import {setCount} from './actions/count';
 
-// interface Props {
-//     count?: number;
-//     name?: string;
-//     setCount?: any;
-// }
-
 const Counter: React.FC<any> = (props) => {
 
     useEffect(() => {
@@ -23,10 +17,7 @@ const Counter: React.FC<any> = (props) => {
     const initialCount = result[0];
     console.log(initialCount);
 
-    // const [name] = useState('Hiter')
-    // const increment = () => {
-    //     setCount(count + 1);
-    //   };
+    const [name] = useState('Counter')
     //   const decrement = () => {
     //     setCount(count - 1);
     //   };
@@ -36,11 +27,11 @@ const Counter: React.FC<any> = (props) => {
 
     return(
       <div>
-        {/* <h1>{name}</h1> */}
+        <h1>{name}</h1>
         <h1>{initialCount}</h1>
-        {/* <button onClick={increment}>Increment</button>
-        <button onClick={decrement}>Decrement</button>
-        <button onClick={reset}>Reset</button> */}
+        {/* <button onClick={increment}>Increment</button> */}
+        {/* <button onClick={decrement}>Decrement</button> */}
+        {/* <button onClick={reset}>Reset</button> */}
       </div>  
     );
 }

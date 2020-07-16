@@ -31809,12 +31809,7 @@ require("./App.css");
 
 var react_redux_1 = require("react-redux");
 
-var count_1 = require("./actions/count"); // interface Props {
-//     count?: number;
-//     name?: string;
-//     setCount?: any;
-// }
-
+var count_1 = require("./actions/count");
 
 var Counter = function Counter(props) {
   react_1.useEffect(function () {
@@ -31826,18 +31821,15 @@ var Counter = function Counter(props) {
     return count;
   });
   var initialCount = result[0];
-  console.log(initialCount); // const [name] = useState('Hiter')
-  // const increment = () => {
-  //     setCount(count + 1);
-  //   };
-  //   const decrement = () => {
+  console.log(initialCount);
+  var name = react_1.useState('Counter')[0]; //   const decrement = () => {
   //     setCount(count - 1);
   //   };
   //   const reset = () => {
   //     setCount(0);
   //   }
 
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, initialCount));
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, name), /*#__PURE__*/React.createElement("h1", null, initialCount));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -32066,7 +32058,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65114" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49814" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
