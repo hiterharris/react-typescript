@@ -1,13 +1,18 @@
 import { Count } from "./Count";
 
-// action strings
 export const SET_COUNT = "SET_COUNT";
+export const INCREMENT = "INCREMENT";
 
 export interface SetCountAction {
   type: typeof SET_COUNT;
   count: Count;
 }
 
-export type CountActionTypes = SetCountAction;
+export interface SetIncrementAction {
+  type: typeof INCREMENT;
+  count: Count;
+}
+
+export type CountActionTypes = SetCountAction | SetIncrementAction;
 
 export type AppActions = CountActionTypes;

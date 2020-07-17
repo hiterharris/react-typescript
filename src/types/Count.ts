@@ -1,4 +1,3 @@
 export interface Count {
-    count: number
-  }
-  
+    count: number,
+}
