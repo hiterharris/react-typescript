@@ -6,16 +6,11 @@ import {connect} from 'react-redux';
 import {setCount} from './actions/count';
 
 const Counter: React.FC<any> = (props) => {
+    const [initialCount, setInitialCount] = useState(props.count[0].count);
 
     useEffect(() => {
       props.setCount();
-    }, [])
-
-  
-    const countArray = Object.values(props.count[0]);
-    let result = countArray.map(({ count }) => count);
-    const initialCount = result[0];
-    console.log(initialCount);
+    }, []);
 
     const [name] = useState('Counter')
     //   const decrement = () => {
@@ -29,6 +24,8 @@ const Counter: React.FC<any> = (props) => {
       <div>
         <h1>{name}</h1>
         <h1>{initialCount}</h1>
+        {/* <h1>{count2[0]}</h1> */}
+
         {/* <button onClick={increment}>Increment</button> */}
         {/* <button onClick={decrement}>Decrement</button> */}
         {/* <button onClick={reset}>Reset</button> */}
@@ -38,7 +35,7 @@ const Counter: React.FC<any> = (props) => {
 
 const mapStateToProps = state => {
   return {
-    count: state
+    count: state.count
   }
 }
 
